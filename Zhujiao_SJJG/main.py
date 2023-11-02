@@ -4,6 +4,7 @@ import json
 from datetime import datetime
 
 
+
 def time_to_seconds(h, m, s=0):
     """将时、分、秒转换为总秒数"""
     return h * 3600 + m * 60 + s
@@ -33,7 +34,7 @@ class Stu(object):
             "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "zh-CN,zh;q=0.9",
             "Connection": "keep-alive",
-            "Cookie": "csrftoken=nNkbajKhYQ5wnFzuuduGVd9ywJI2Or585HYeK3bXTTgZAo8GF6SYQ2mW55GSfeQk; sessionid=uf6m1iipc67jugdnp0paavjnhlf7zsku",
+            "Cookie": "csrftoken=SErGrrk1pp4b9kNt1tiS6Gh5qo5sAerBEzkLLYp4naa4Dish9VmQgqdwtFbky60x; sessionid=scjtdipungpd1cr0onwb71kr7edk2z78",
             "Referer": "http://172.31.221.67/admin",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
         }
@@ -69,7 +70,24 @@ class Stu(object):
         self.start_time = time_to_seconds(14, 10)  # 开始时间 14：10
         self.copy_dict: dict[str, list[str]] = {}  # 抄袭人名单
         self.copy_pro_dict: dict[str, list[str]] = {}  # 被抄袭名单
+        self.pre_process()  # 预处理：删除助教和老师
         self.cha_chong()
+
+    def pre_process(self):
+        # 删除老师和助教
+        rows_to_delete = []
+        for index, row in self.df.iterrows():
+            if 'szu' in row['用户名'] or 'zhujiao' in row['用户名']:
+                rows_to_delete.append(index)
+        self.df = self.df.drop(index=rows_to_delete)
+        self.df = self.df.reset_index(drop=True)
+
+        rows_to_delete_cz = []
+        for index, row in self.df_cz.iterrows():
+            if 'szu' in str(row['用户A']) or 'szu' in str(row['用户B']):
+                rows_to_delete_cz.append(index)
+        self.df_cz = self.df_cz.drop(index=rows_to_delete_cz)
+        self.df_cz = self.df_cz.reset_index(drop=True)
 
     def cha_chong(self):
         # 先获取题目id列表
@@ -89,8 +107,8 @@ class Stu(object):
             else:
                 user_copy = sub_b
                 user_copy_pro = sub_a
-            if 'szu' in str(user_copy['user']['username']) or 'szu' in str(user_copy_pro['user']['username']):
-                continue
+            # if 'szu' in str(user_copy['user']['username']) or 'szu' in str(user_copy_pro['user']['username']):
+            #     continue
             problem_word: str = chr(problem_list.index(row['问题ID']) + 65)  # 将下标转化成字母ABCD
             # 抄袭成功：
             if user_copy['status'] == 0:
@@ -119,11 +137,9 @@ class Stu(object):
     def get_new_record(self):
         col = self.df.columns.values[5:]
         list_score = [[] for _ in range(len(col) + 2)]  # 多一行总分与说明
-        rows_to_delete = []  # 删除老师和助教
+
         for index, row in self.df.iterrows():
-            if 'szu' in row['用户名'] or 'zhujiao' in row['用户名']:
-                rows_to_delete.append(index)
-                continue
+
             caption = ''  # 修正分数原因
             # 按提交时间给分数打折
             for i, problem_order in enumerate(col):
@@ -172,12 +188,11 @@ class Stu(object):
         # 去掉无用列 并写入excel
         cols_to_drop = self.df.columns[4:5 + len(col)]
         self.df = self.df.drop(columns=cols_to_drop)
-        self.df = self.df.drop(index=rows_to_delete)
         self.df.to_excel('./EXCEL/上机得分{}.xlsx'.format(self.n), index=False)
 
 
 def main():
-    stu = Stu(6)
+    stu = Stu(2)
     stu.get_new_record()
 
 

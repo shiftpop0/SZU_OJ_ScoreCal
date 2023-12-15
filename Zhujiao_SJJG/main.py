@@ -5,17 +5,6 @@ from datetime import datetime, timedelta
 import configuration as cf
 
 
-# def time_to_seconds(h, m, s=0):
-#     """将时、分、秒转换为总秒数"""
-#     return h * 3600 + m * 60 + s
-#
-#
-# def seconds_to_time(total_seconds):
-#     """将总秒数转换为天、小时、分钟、秒的格式"""
-#     days, total_seconds = divmod(total_seconds, 24 * 3600)
-#     hours, total_seconds = divmod(total_seconds, 3600)
-#     minutes, seconds = divmod(total_seconds, 60)
-#     return days, hours, minutes, seconds
 
 def days_diff(begin_time:str,time2:str)->int:
     time_obj1 = datetime.fromisoformat(begin_time)
@@ -44,7 +33,7 @@ class Stu(object):
             "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "zh-CN,zh;q=0.9",
             "Connection": "keep-alive",
-            "Cookie": "csrftoken=SErGrrk1pp4b9kNt1tiS6Gh5qo5sAerBEzkLLYp4naa4Dish9VmQgqdwtFbky60x; sessionid=scjtdipungpd1cr0onwb71kr7edk2z78",
+            "Cookie": "csrftoken=sFqyiwBTUwtMzxaQPKfdgzgD2nd2vSGGATZxBmfT7yp1INNLUgzQxARLGchiTXC5; sessionid=o03p6koi5b4v74k7jc5idgw3kei657gx",
             "Referer": "http://172.31.221.67/admin",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
         }
@@ -56,7 +45,14 @@ class Stu(object):
             "score_value_3": [20, 20, 20, 20, 20],
             "score_value_4": [20, 20, 20, 20, 20],
             "score_value_5": [25, 25, 25, 25],
-            "score_value_6": [20, 20, 20, 20, 20]
+            "score_value_6": [20, 20, 20, 20, 20],
+            "score_value_7": [20, 20, 20, 20, 20],
+            "score_value_8": [20, 20, 20, 20, 20],
+            "score_value_9": [20, 20, 20, 20, 20],
+            "score_value_10": [20, 20, 20, 20, 20],
+            "score_value_11": [20, 20, 20, 20, 20],
+            "score_value_12": [20, 20, 20, 20, 20],
+            "score_value_13": [16, 16, 16, 16, 16, 20]
         }
 
         self.exp_id = {
@@ -65,7 +61,14 @@ class Stu(object):
             '实验3': 185,
             '实验4': 213,
             '实验5': 223,
-            '实验6': 239
+            '实验6': 239,
+            '实验7': 252,
+            '实验8': 266,
+            '实验9': 280,
+            '实验10': 295,
+            '实验11': 317,
+            '实验12': 332,
+            '实验13': 347
         }
         self.n = n
         self.df_cz = pd.read_excel('./EXCEL/查重{}.xlsx'.format(n), dtype={'用户A': str, '用户B': str})
@@ -229,7 +232,7 @@ class Stu(object):
 
 
 def main():
-    stu = Stu(6)
+    stu = Stu(13)
     stu.get_new_record()
 
 

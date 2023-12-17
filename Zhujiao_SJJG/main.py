@@ -17,6 +17,7 @@ def days_diff(begin_time:str,time2:str)->int:
         return 1
     else:
         return -1
+# days_diff('2023-12-12T10:10:00+08:00','2023-12-11T14:10:00+08:00')
 
 # s1 = "2023-09-04T14:10:00+08:00"
 def time_difference(s1, s2) -> bool:
@@ -33,7 +34,7 @@ class Stu(object):
             "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "zh-CN,zh;q=0.9",
             "Connection": "keep-alive",
-            "Cookie": "csrftoken=sFqyiwBTUwtMzxaQPKfdgzgD2nd2vSGGATZxBmfT7yp1INNLUgzQxARLGchiTXC5; sessionid=o03p6koi5b4v74k7jc5idgw3kei657gx",
+            "Cookie": "csrftoken=32QgxMDZkT7tx8ed97g40ppJZmpGghWRVh4wsBlSMOtx85ElnWgZt5doEGWYiwfY; sessionid=rfal6q7hmssxr67png474pfed8nejwmq",
             "Referer": "http://172.31.221.67/admin",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
         }
